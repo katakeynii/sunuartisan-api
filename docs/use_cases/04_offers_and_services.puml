@@ -1,0 +1,45 @@
+@startuml SunuArtisan - Offres et Services
+
+' Configuration du style
+skinparam actorStyle awesome
+skinparam packageStyle rectangle
+skinparam usecaseStyle roundedBox
+
+' Acteurs
+actor "Client" as client
+actor "Artisan" as artisan
+
+package "Gestion des Offres" {
+    usecase "Proposer une offre" as UC1
+    usecase "Demander déplacement" as UC2
+    usecase "Définir prix" as UC3
+    usecase "Accepter une offre" as UC4
+    usecase "Refuser une offre" as UC5
+    usecase "Négocier prix" as UC6
+    usecase "Annuler une offre" as UC7
+    usecase "Confirmer début service" as UC8
+    usecase "Confirmer fin service" as UC9
+}
+
+' Relations
+client --> UC4
+client --> UC5
+client --> UC6
+client --> UC8
+client --> UC9
+
+artisan --> UC1
+artisan --> UC2
+artisan --> UC3
+artisan --> UC6
+artisan --> UC7
+artisan --> UC8
+artisan --> UC9
+
+' Extensions et inclusions
+UC1 ..> UC3 : "<<include>>"
+UC2 ..> UC3 : "<<extend>>"
+UC6 ..> UC3 : "<<include>>"
+UC8 ..> UC4 : "<<include>>"
+
+@enduml 

@@ -1,0 +1,54 @@
+@startuml SunuArtisan - Authentification
+
+' Configuration du style
+skinparam actorStyle awesome
+skinparam packageStyle rectangle
+skinparam usecaseStyle roundedBox
+
+' Acteurs
+actor "Client" as client
+actor "Artisan" as artisan
+actor "Administrateur" as admin
+
+package "Authentification" {
+    usecase "S'inscrire avec numéro de téléphone" as UC1
+    usecase "Vérifier OTP" as UC2
+    usecase "Définir code secret" as UC3
+    usecase "Se connecter avec téléphone" as UC4
+    usecase "S'authentifier avec OTP" as UC5
+    usecase "S'authentifier avec code secret" as UC6
+    usecase "S'inscrire en tant qu'artisan" as UC7
+    usecase "Soumettre documents d'identité" as UC8
+    usecase "Valider identité artisan" as UC9
+    usecase "Onboarder artisan" as UC10
+}
+
+' Relations Client
+client --> UC1
+client --> UC2
+client --> UC4
+client --> UC5
+
+' Relations Artisan
+artisan --> UC1
+artisan --> UC2
+artisan --> UC3
+artisan --> UC4
+artisan --> UC5
+artisan --> UC6
+artisan --> UC7
+artisan --> UC8
+
+' Relations Admin
+admin --> UC9
+admin --> UC10
+
+' Extensions et inclusions
+UC7 ..> UC1 : "<<include>>"
+UC7 ..> UC2 : "<<include>>"
+UC7 ..> UC3 : "<<include>>"
+UC7 ..> UC8 : "<<include>>"
+UC10 ..> UC8 : "<<include>>"
+UC10 ..> UC9 : "<<include>>"
+
+@enduml 

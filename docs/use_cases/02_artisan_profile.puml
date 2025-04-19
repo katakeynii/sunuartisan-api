@@ -1,0 +1,40 @@
+@startuml SunuArtisan - Gestion Profil Artisan
+
+' Configuration du style
+skinparam actorStyle awesome
+skinparam packageStyle rectangle
+skinparam usecaseStyle roundedBox
+
+' Acteurs
+actor "Artisan" as artisan
+actor "Administrateur" as admin
+
+package "Gestion Profil Artisan" {
+    usecase "Gérer informations personnelles" as UC1
+    usecase "Ajouter/Modifier métier" as UC2
+    usecase "Définir services et tarifs" as UC3
+    usecase "Gérer portfolio" as UC4
+    usecase "Gérer atelier" as UC5
+    usecase "Gérer disponibilités" as UC6
+    usecase "Gérer zone d'intervention" as UC7
+    usecase "Valider modifications" as UC8
+}
+
+' Relations
+artisan --> UC1
+artisan --> UC2
+artisan --> UC3
+artisan --> UC4
+artisan --> UC5
+artisan --> UC6
+artisan --> UC7
+
+admin --> UC8
+
+' Extensions et inclusions
+UC2 ..> UC3 : "<<include>>"
+UC5 ..> UC7 : "<<include>>"
+UC1 ..> UC8 : "<<extend>>"
+UC2 ..> UC8 : "<<extend>>"
+
+@enduml 

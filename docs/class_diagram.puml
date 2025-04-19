@@ -1,0 +1,177 @@
+@startuml SunuArtisan
+
+' Styles et configuration
+skinparam classAttributeIconSize 0
+skinparam class {
+    BackgroundColor White
+    ArrowColor Black
+    BorderColor Black
+}
+
+' Énumérations
+enum ServiceStatus {
+    EN_ATTENTE
+    ACCEPTE
+    EN_COURS
+    TERMINE
+    ANNULE
+}
+
+enum UserStatus {
+    EN_ATTENTE
+    VERIFIE
+    BLOQUE
+}
+
+enum JourSemaine {
+    LUNDI
+    MARDI
+    MERCREDI
+    JEUDI
+    VENDREDI
+    SAMEDI
+    DIMANCHE
+}
+
+' Classes principales
+class User {
+    +string telephone
+    +string nom
+    +string prenom
+    +string adresse
+    +UserStatus status
+    +datetime created_at
+    +datetime updated_at
+}
+
+class Client {
+    +verifierOTP()
+    +publierRequeteService()
+    +noterArtisan()
+}
+
+class Artisan {
+    +string cni_numero
+    +string cni_photo
+    +string profile_photo
+    +boolean verified
+    +float note_moyenne
+    +boolean est_disponible
+    +validerIdentite()
+    +ajouterService()
+    +repondreOffre()
+    +definirDisponibilites()
+}
+
+class HoraireDisponibilite {
+    +JourSemaine jour
+    +time heure_debut
+    +time heure_fin
+    +boolean est_actif
+    +datetime created_at
+    +datetime updated_at
+}
+
+class DisponibiliteExceptionnelle {
+    +datetime date_debut
+    +datetime date_fin
+    +string raison
+    +boolean est_disponible
+    +datetime created_at
+    +datetime updated_at
+}
+
+class Atelier {
+    +string nom
+    +string adresse
+    +float latitude
+    +float longitude
+    +string description
+    +datetime created_at
+    +datetime updated_at
+}
+
+class Metier {
+    +string nom
+    +string description
+    +datetime created_at
+    +datetime updated_at
+}
+
+class Service {
+    +string nom
+    +string description
+    +float prix_base
+    +datetime created_at
+    +datetime updated_at
+}
+
+class RequeteService {
+    +string description
+    +boolean est_ouvert
+    +float budget_estime
+    +datetime date_souhaitee
+    +ServiceStatus status
+    +float latitude
+    +float longitude
+    +datetime created_at
+    +datetime updated_at
+}
+
+class Offre {
+    +float prix_propose
+    +string description
+    +boolean necessite_deplacement
+    +datetime created_at
+    +datetime updated_at
+    +accepter()
+    +refuser()
+}
+
+class Evaluation {
+    +integer note
+    +string commentaire
+    +datetime created_at
+}
+
+class Transaction {
+    +float montant
+    +string reference
+    +boolean est_complete
+    +datetime date_paiement
+    +datetime created_at
+    +datetime updated_at
+}
+
+class Portfolio {
+    +string titre
+    +string description
+    +string image_url
+    +datetime created_at
+    +datetime updated_at
+}
+
+' Relations
+User <|-- Client
+User <|-- Artisan
+
+Artisan "1" *-- "many" Portfolio
+Artisan "many" -- "many" Metier
+Metier "1" -- "many" Service
+Artisan "many" -- "many" Service
+
+Artisan "1" -- "0..many" Atelier
+Artisan "1" -- "many" HoraireDisponibilite
+Artisan "1" -- "many" DisponibiliteExceptionnelle
+
+Client "1" -- "many" RequeteService
+RequeteService "1" -- "many" Offre
+Artisan "1" -- "many" Offre
+
+RequeteService "many" -- "many" Service
+RequeteService "1" -- "0..1" Transaction
+
+Artisan "1" -- "many" Evaluation
+Evaluation "many" -- "0..1" RequeteService
+
+@enduml 

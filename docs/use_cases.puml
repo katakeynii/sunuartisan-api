@@ -1,0 +1,103 @@
+@startuml SunuArtisan - Cas d'utilisation
+
+' Configuration du style
+skinparam actorStyle awesome
+skinparam packageStyle rectangle
+skinparam usecaseStyle roundedBox
+
+' Définition des acteurs
+actor "Client" as client
+actor "Artisan" as artisan
+actor "Administrateur" as admin
+
+' Package pour l'authentification
+package "Authentification" {
+    usecase "S'inscrire avec numéro de téléphone" as UC1
+    usecase "Vérifier OTP" as UC2
+    usecase "S'inscrire en tant qu'artisan" as UC3
+    usecase "Soumettre documents d'identité" as UC4
+}
+
+' Package pour la gestion du profil artisan
+package "Gestion Profil Artisan" {
+    usecase "Gérer profil" as UC5
+    usecase "Ajouter métier" as UC6
+    usecase "Définir services" as UC7
+    usecase "Gérer portfolio" as UC8
+    usecase "Gérer atelier" as UC9
+}
+
+' Package pour la recherche et demandes
+package "Recherche et Demandes" {
+    usecase "Rechercher artisans" as UC10
+    usecase "Filtrer par critères" as UC11
+    usecase "Publier requête ouverte" as UC12
+    usecase "Publier requête fermée" as UC13
+    usecase "Consulter profil artisan" as UC14
+}
+
+' Package pour la gestion des offres
+package "Gestion des Offres" {
+    usecase "Proposer une offre" as UC15
+    usecase "Demander déplacement" as UC16
+    usecase "Accepter une offre" as UC17
+    usecase "Refuser une offre" as UC18
+}
+
+' Package pour les paiements et évaluations
+package "Paiements et Évaluations" {
+    usecase "Effectuer paiement" as UC19
+    usecase "Valider service rendu" as UC20
+    usecase "Évaluer artisan" as UC21
+    usecase "Gérer les transactions" as UC22
+}
+
+' Package pour l'administration
+package "Administration" {
+    usecase "Valider identité artisan" as UC23
+    usecase "Gérer les utilisateurs" as UC24
+    usecase "Onboarder artisan" as UC25
+    usecase "Gérer les métiers" as UC26
+}
+
+' Relations Client
+client --> UC1
+client --> UC2
+client --> UC10
+client --> UC11
+client --> UC12
+client --> UC13
+client --> UC14
+client --> UC17
+client --> UC18
+client --> UC19
+client --> UC20
+client --> UC21
+
+' Relations Artisan
+artisan --> UC3
+artisan --> UC4
+artisan --> UC5
+artisan --> UC6
+artisan --> UC7
+artisan --> UC8
+artisan --> UC9
+artisan --> UC15
+artisan --> UC16
+
+' Relations Administrateur
+admin --> UC23
+admin --> UC24
+admin --> UC25
+admin --> UC26
+admin --> UC22
+
+' Extensions et inclusions
+UC3 ..> UC4 : "<<include>>"
+UC12 ..> UC19 : "<<include>>"
+UC13 ..> UC19 : "<<include>>"
+UC17 ..> UC19 : "<<include>>"
+UC20 ..> UC21 : "<<include>>"
+UC25 ..> UC4 : "<<include>>"
+
+@enduml 

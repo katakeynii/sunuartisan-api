@@ -1,0 +1,44 @@
+@startuml SunuArtisan - Recherche et Requêtes
+
+' Configuration du style
+skinparam actorStyle awesome
+skinparam packageStyle rectangle
+skinparam usecaseStyle roundedBox
+
+' Acteurs
+actor "Client" as client
+actor "Artisan" as artisan
+
+package "Recherche et Requêtes" {
+    usecase "Rechercher artisans" as UC1
+    usecase "Filtrer par distance" as UC2
+    usecase "Filtrer par service" as UC3
+    usecase "Filtrer par lieu" as UC4
+    usecase "Filtrer par métier" as UC5
+    usecase "Consulter profil artisan" as UC6
+    usecase "Voir évaluations" as UC7
+    usecase "Publier requête ouverte" as UC8
+    usecase "Publier requête fermée" as UC9
+    usecase "Voir requêtes disponibles" as UC10
+    usecase "Voir requêtes en cours" as UC11
+}
+
+' Relations
+client --> UC1
+client --> UC6
+client --> UC7
+client --> UC8
+client --> UC9
+client --> UC11
+
+artisan --> UC10
+artisan --> UC11
+
+' Extensions et inclusions
+UC1 ..> UC2 : "<<include>>"
+UC1 ..> UC3 : "<<include>>"
+UC1 ..> UC4 : "<<include>>"
+UC1 ..> UC5 : "<<include>>"
+UC6 ..> UC7 : "<<include>>"
+
+@enduml 

@@ -1,0 +1,47 @@
+@startuml SunuArtisan - Paiements et Évaluations
+
+' Configuration du style
+skinparam actorStyle awesome
+skinparam packageStyle rectangle
+skinparam usecaseStyle roundedBox
+
+' Acteurs
+actor "Client" as client
+actor "Artisan" as artisan
+actor "Administrateur" as admin
+
+package "Paiements et Évaluations" {
+    usecase "Effectuer paiement" as UC1
+    usecase "Bloquer montant" as UC2
+    usecase "Valider service rendu" as UC3
+    usecase "Débloquer paiement" as UC4
+    usecase "Évaluer artisan" as UC5
+    usecase "Commenter prestation" as UC6
+    usecase "Contester évaluation" as UC7
+    usecase "Gérer litiges" as UC8
+    usecase "Suivre transactions" as UC9
+    usecase "Gérer remboursements" as UC10
+}
+
+' Relations
+client --> UC1
+client --> UC3
+client --> UC5
+client --> UC6
+
+artisan --> UC7
+artisan --> UC9
+
+admin --> UC8
+admin --> UC9
+admin --> UC10
+
+' Extensions et inclusions
+UC1 ..> UC2 : "<<include>>"
+UC3 ..> UC4 : "<<include>>"
+UC3 ..> UC5 : "<<include>>"
+UC5 ..> UC6 : "<<include>>"
+UC7 ..> UC8 : "<<include>>"
+UC8 ..> UC10 : "<<extend>>"
+
+@enduml 
