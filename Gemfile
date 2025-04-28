@@ -52,7 +52,7 @@ group :development, :test do
   gem "rspec-rails", "~> 7.0.0"
   gem "factory_bot_rails"
   gem "faker"
-  gem "shoulda-matchers", "~> 6.0"
+  gem "shoulda-matchers", "~> 6.5"
   gem "database_cleaner"
   gem "simplecov", require: false
 end
